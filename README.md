@@ -1,21 +1,27 @@
-# Syscall
+# elixir-syscall
 
-**TODO: Add description**
+Elixir package for invoking system calls, currently only supported on Linux,
+but in future versions support will be added for other operating systems.
 
-## Installation
+## Usage
 
-If [available in Hex](https://hex.pm/docs/publish), the package can be installed
-by adding `syscall` to your list of dependencies in `mix.exs`:
+First, compile the C NIF stubs in `c_src/`:
 
-```elixir
-def deps do
-  [
-    {:syscall, "~> 0.1.0"}
-  ]
-end
+```
+$ cd c_src
+$ make
 ```
 
-Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc)
-and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
-be found at [https://hexdocs.pm/syscall](https://hexdocs.pm/syscall).
+This has copied a `syscall.so` shared object to the `../lib/` folder.
 
+Next, execute the test:
+
+```
+$ cd lib
+$ iex syscall.ex
+[...]
+iex> Syscall.test
+Hello, World!
+$ echo $?
+42
+```
