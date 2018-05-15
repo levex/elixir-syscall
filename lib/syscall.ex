@@ -3,7 +3,11 @@ defmodule Syscall do
   @on_load :load_nifs
 
   def load_nifs do
-    :erlang.load_nif('./syscall', 0)
+    case :erlang.load_nif('./syscall', 0) do
+      {:error, _} ->
+        :erlang.load_nif('./c_src/syscall', 0)
+    end
+  end
 
   def string_to_buffer(str) do
     len = String.length str
