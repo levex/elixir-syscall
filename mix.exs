@@ -1,11 +1,20 @@
+defmodule Mix.Tasks.Compile.MakeSharedObject do
+  def run(_args) do
+    {result, _errcode} = System.cmd("make", [])
+    IO.binwrite(result)
+  end
+end
+
 defmodule Syscall.MixProject do
   use Mix.Project
 
   def project do
     [
       app: :syscall,
+      compilers: [:make_shared_object] ++ Mix.compilers,
       version: "0.1.0",
       elixir: "~> 1.6",
+      build_embedded: Mix.env() == :prod,
       start_permanent: Mix.env() == :prod,
       deps: deps()
     ]
