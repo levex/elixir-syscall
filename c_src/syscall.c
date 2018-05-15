@@ -19,6 +19,8 @@
 # define DV if (0)
 #endif
 
+static int saved_errno;
+
 static ERL_NIF_TERM
 make_raw_syscall(ErlNifEnv *env, int argc, const ERL_NIF_TERM argv[]) {
 	uint64_t no, a0, a1, a2, a3, a4, a5, a6;
@@ -35,8 +37,9 @@ make_raw_syscall(ErlNifEnv *env, int argc, const ERL_NIF_TERM argv[]) {
     DV fprintf(stderr, "no %lld a0 %lld a1 %p a2 %lld\n",
             no, a0, a1, a2);
 
-	// Usual C unreadable code because this way is more true
+	saved_errno = 0;
 	int result = syscall(no, a0, a1, a2, a3, a4, a5, a6);
+	saved_errno = errno;
 
 	return enif_make_int(env, result);
 }
@@ -64,7 +67,7 @@ stringify_term(ErlNifEnv *env, int argc, const ERL_NIF_TERM argv[]) {
 
 static ERL_NIF_TERM
 get_errno(ErlNifEnv *env, int argc, const ERL_NIF_TERM argv[]) {
-    return enif_make_int(env, (int) errno);
+    return enif_make_int(env, (int) saved_errno);
 }
 
 // Let's define the array of ErlNifFunc beforehand:
