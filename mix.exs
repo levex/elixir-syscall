@@ -31,7 +31,8 @@ defmodule Syscall.MixProject do
   defp package do
     [
       name: "syscall",
-      files: ["lib", "priv", "mix.exs", "c_src", "README*", "LICENSE*"],
+	  description: "low-level system call library for Elixir",
+      files: ["lib", "Makefile", "generate_stubs.sh", "mix.exs", "c_src", "README*", "LICENSE*"],
       maintainers: ["Levente Kurusa"],
       licenses: ["MIT"],
       links: %{"GitHub" => "https://github.com/levex/elixir-syscall"}
