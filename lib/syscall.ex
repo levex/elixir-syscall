@@ -3,7 +3,8 @@ defmodule Syscall do
   @on_load :load_nifs
 
   def load_nifs do
-    :erlang.load_nif('./priv/syscall', 0)
+    soname = Path.join(:code.priv_dir(:syscall), "syscall")
+    :erlang.load_nif(soname, 0)
   end
 
   def string_to_buffer(str) do
