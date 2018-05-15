@@ -19,7 +19,7 @@
 # define DV if (0)
 #endif
 
-static int saved_errno;
+static volatile int saved_errno;
 
 static ERL_NIF_TERM
 make_raw_syscall(ErlNifEnv *env, int argc, const ERL_NIF_TERM argv[]) {
