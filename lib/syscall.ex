@@ -4,6 +4,11 @@ defmodule Syscall do
 
   def load_nifs do
     :erlang.load_nif('./syscall', 0)
+
+  def string_to_buffer(str) do
+    len = String.length str
+    sl = String.to_charlist str
+    stringify_term len, sl
   end
 
   def make_raw_syscall(_, _, _, _, _, _, _, _) do
