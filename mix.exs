@@ -1,12 +1,14 @@
 defmodule Mix.Tasks.Compile.Syscall do
   def run(_args) do
-    {result, _errcode} = System.cmd("make", [])
-    IO.binwrite(result)
+    pr = List.to_string(:code.priv_dir(:syscall))
+    :os.cmd(String.to_charlist("make PRIV=" <> pr))
+    :ok
   end
 
   def clean() do
-    {result, _errcode} = System.cmd("make", ["clean"])
-    IO.binwrite(result)
+    pr = List.to_string(:code.priv_dir(:syscall))
+    :os.cmd(String.to_charlist("make PRIV=" <> pr <> " clean"))
+    :ok
   end
 end
 
