@@ -1,12 +1,13 @@
 defmodule Mix.Tasks.Compile.Syscall do
   def run(_args) do
-    pr = List.to_string(:code.priv_dir(:syscall))
+	pr = Mix.Project.build_path <> "/lib/syscall/priv"
+    IO.puts "Compiling NIFs into syscall.so with priv=" <> pr
     :os.cmd(String.to_charlist("make PRIV=" <> pr))
     :ok
   end
 
   def clean() do
-    pr = List.to_string(:code.priv_dir(:syscall))
+	pr = Mix.Project.build_path <> "/lib/syscall/priv"
     :os.cmd(String.to_charlist("make PRIV=" <> pr <> " clean"))
     :ok
   end
@@ -31,7 +32,8 @@ defmodule Syscall.MixProject do
   defp package do
     [
       name: "syscall",
-      files: ["lib", "priv", "mix.exs", "c_src", "README*", "LICENSE*"],
+	  description: "low-level system call library for Elixir",
+      files: ["lib", "Makefile", "generate_stubs.sh", "mix.exs", "c_src", "README*", "LICENSE*"],
       maintainers: ["Levente Kurusa"],
       licenses: ["MIT"],
       links: %{"GitHub" => "https://github.com/levex/elixir-syscall"}
