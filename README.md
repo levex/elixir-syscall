@@ -1,4 +1,4 @@
-# elixir-syscall
+# elixir-syscall ![Build status](https://travis-ci.org/levex/elixir-syscall.svg?branch=master)
 
 Elixir package for invoking system calls, currently only supported on Linux,
 but in future versions support will be added for other operating systems.
