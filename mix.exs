@@ -23,7 +23,18 @@ defmodule Syscall.MixProject do
       elixir: "~> 1.6",
       build_embedded: true,
       start_permanent: Mix.env() == :prod,
-      deps: deps()
+      deps: deps(),
+	  package: package()
+    ]
+  end
+
+  defp package do
+    [
+      name: "syscall",
+      files: ["lib", "priv", "mix.exs", "c_src", "README*", "LICENSE*"],
+      maintainers: ["Levente Kurusa"],
+      licenses: ["MIT"],
+      links: %{"GitHub" => "https://github.com/levex/elixir-syscall"}
     ]
   end
 
